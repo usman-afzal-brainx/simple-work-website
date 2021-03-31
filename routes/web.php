@@ -21,6 +21,6 @@ Route::get('/contact', function () {
     return view('simplewelcome');
 });
 
-Route::get('/aboutus', function () {
+Route::get('/about', function () {
     return view('about');
 });
