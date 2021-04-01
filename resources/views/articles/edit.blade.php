@@ -2,19 +2,20 @@
 
 @section('head')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-
 @endsection
 
 @section('content')
+
 
     <div id="wrapper">
 
         <div id="page" class="container">
 
-            <h1 class="heading has-text-weight-bold is-size-4" >New Article</h1>
+            <h1 class="heading has-text-weight-bold is-size-4" >Update Article</h1>
 
-            <form method="POST" action="/articles">
+            <form method="POST" action="/articles/{{$article->id}}">
                 @csrf
+                @method('PUT')
                 <div class="field">
                     <label for="title" class="label">Title</label>
                     <div class="control">
@@ -22,7 +23,7 @@
                          class="input {{$errors->has('title') ? 'is-danger' : ''}}"
                           name="title"
                            id="title"
-                           value = "{{old('title')}}"
+                           value = "{{$article->title}}"
                            >
                         @if ($errors->has('title'))
                         <p class="help is-danger">{{$errors->first('title')}}</p>
@@ -37,7 +38,7 @@
                          id="excerpt"
                           class="textarea  {{$errors->has('excerpt') ? 'is-danger' : ''}}"
                           >
-                          {{old('excerpt')}}
+                          {{$article->excerpt}}
                           </textarea>
                         @if ($errors->has('excerpt'))
                         <p class="help is-danger">{{$errors->first('excerpt')}}</p>
@@ -54,12 +55,11 @@
                         name="body"
                          id="body"
                          class="textarea {{$errors->has('body') ? 'is-danger' : ''}}"
-
                          >
-                         {{old('body')}}
+                         {{$article->body}}
                          </textarea>
                         @if ($errors->has('body'))
-                        <p class="help is-danger">{{$errors->first('body')}}</p>
+                        <p class="help is-danger">{{$article->body}}</p>
                         @endif
                     </div>
                 </div>
