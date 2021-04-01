@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/contact', function () {
     return view('simplewelcome');
 });
 
 Route::get('/about', function () {
-    return view('about');
-});
+    $articles = App\Models\Article::latest()->get();
+    return view('about', [
+        'articles' => $articles,
+    ]);
+})->name('about');
+
+Route::get('articles', 'ArticlesController@index')->name('articles.index');
+Route::get('articles/create', 'ArticlesController@create');
+Route::get('articles/{article}', 'ArticlesController@show');
