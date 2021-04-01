@@ -54,7 +54,6 @@
                         name="body"
                          id="body"
                          class="textarea {{$errors->has('body') ? 'is-danger' : ''}}"
-
                          >
                          {{old('body')}}
                          </textarea>
