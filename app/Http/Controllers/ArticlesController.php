@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 
 class ArticlesController extends Controller
 {
@@ -13,18 +14,28 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::latest()->get();
+        $articles = [];
+        if (request('tag')) {
+            $articles = Tag::where('name', request('tag'))->firstOrFail()->articles;
+        } else {
+            $articles = Article::latest()->get();
+        }
 
         return view('articles.index', ['articles' => $articles]);
     }
 
     public function create()
     {
-        return view('articles.create');
+
+        $tags = Tag::all();
+
+        return view('articles.create', ['tags' => $tags]);
     }
 
     public function store()
     {
+        dd(request()->all());
+
         $validatedAttributes = request()->validate([
             'title' => 'required',
             'excerpt' => 'required',
